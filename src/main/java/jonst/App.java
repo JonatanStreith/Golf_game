@@ -50,12 +50,6 @@ public class App {
         inputReader.close();
     }
 
-
-    static String askUserFor(String term) {     //Multi-use method for getting strings
-        System.out.print(term);
-        return inputReader.nextLine();
-    }
-
     public static void printLog(double[] log){
         System.out.println("Each swing's distance: ");
         for (int i = 0; i < log.length; i++) {
@@ -64,6 +58,13 @@ public class App {
         }
 
     }
+
+
+    static String askUserFor(String term) {     //Multi-use method for getting strings
+        System.out.print(term);
+        return inputReader.nextLine();
+    }
+
 
     static double askUserForDouble(String term) {     //Multi-use method for getting strings
 

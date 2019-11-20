@@ -9,7 +9,7 @@ public class InputTest {
     @Test
     public void ConstructorTest()
     {
-        Input test = new Input(45, 1000);
+        Shot test = new Shot(45, 1000);
 
         double expectedDistance = 4443.32;  //Calculated result of those inputs
 

@@ -2,7 +2,6 @@ package jonst;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Game {
 
@@ -24,18 +23,27 @@ public class Game {
         System.out.println("Today's course is " + MessageFormat.format("{0,number,#.##}", courseLength) + " meters!");
 
         while (!reachedHole) {
-            adjustDistance();
+            swing();
             checkIfReachedHole();
         }
 
     }
 
-    public void adjustDistance() {
-        distanceRemaining -= swing(); //Take a swing, move along
+    public void swing() {
+
+        Shot shot = new Shot();
+
+        double distanceOfShot = shot.getDistance();
+        logDistance(distanceOfShot);
+
+        distanceRemaining -= distanceOfShot;
+
         if (distanceRemaining < 0)  //If you overshoot, you have to go back - negative distance becomes positive
             distanceRemaining *= -1;
         numberOfSwings++;
     }
+
+
 
     public void checkIfReachedHole() {
         if (distanceRemaining <= tolerance) {
@@ -58,21 +66,16 @@ public class Game {
 
     }
 
-    public double swing() {
 
-        Input input = new Input();
-
-        logDistance(input.getDistance());
-
-
-        return input.getDistance();
-    }
 
     public void logDistance(double distance) {
         golfLog = Arrays.copyOf(golfLog, golfLog.length + 1);
 
         golfLog[golfLog.length - 1] = distance;
     }
+
+
+
 
 
     public double getCourseLength() {

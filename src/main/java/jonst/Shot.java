@@ -2,7 +2,7 @@ package jonst;
 
 import java.text.MessageFormat;
 
-public class Input {
+public class Shot {
 
     private double angle;
     private double power;
@@ -11,7 +11,7 @@ public class Input {
     private double velocity;
     private double distance;
 
-    public Input() {
+    public Shot() {
 
         System.out.println("Choose angle and force of swing.");
         angle = App.askUserForDouble("Angle? "); //Check for wrong input handling
@@ -22,7 +22,7 @@ public class Input {
     }
 
 
-    public Input(double angle, double power){
+    public Shot(double angle, double power){
         this.angle = angle;
         this.power = power;
 
