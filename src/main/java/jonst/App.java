@@ -19,7 +19,7 @@ public class App {
 
         do {
 
-            switch (askUserFor("Do you want to play? (y/n) [n]").toLowerCase()) {
+            switch (askUserFor("Do you want to play? (y/n) [n] ").toLowerCase()) {
                 case "y": {
                     newGame = true;
                     Game game = new Game();
@@ -64,6 +64,27 @@ public class App {
         }
 
     }
+
+    static double askUserForDouble(String term) {     //Multi-use method for getting strings
+
+        double input = 0;
+        boolean legitimateValue;
+
+        do {
+            System.out.print(term);
+            legitimateValue = true;
+            try {
+                input = Double.parseDouble(inputReader.nextLine());
+            } catch (NumberFormatException e){
+                System.out.println("Sorry, numbers only.");
+                legitimateValue = false;
+            }
+        } while(!legitimateValue);
+
+        return input;
+    }
+
+
 
 }
 

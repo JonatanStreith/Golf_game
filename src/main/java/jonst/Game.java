@@ -19,34 +19,36 @@ public class Game {
         courseLength = randomCourseLength();
         distanceRemaining = courseLength;
         numberOfSwings = 0;
-
         golfLog = new double[0];
-
 
         System.out.println("Today's course is " + MessageFormat.format("{0,number,#.##}", courseLength) + " meters!");
 
         while (!reachedHole) {
-
-            distanceRemaining -= swing(); //Take a swing, move along
-            if (distanceRemaining < 0)  //If you overshoot, you have to go back - negative distance becomes positive
-                distanceRemaining *= -1;
-
-            numberOfSwings++;
-
-            if (distanceRemaining <= tolerance) {
-                reachedHole = true;
-
-                if (numberOfSwings == 1)
-                    System.out.println("Hole in one!");
-                else
-                    System.out.println("The ball is in the hole!");
-            } else {
-                System.out.println("Distance remaining: " + MessageFormat.format("{0,number,#.##}", distanceRemaining) + " meters.");
-            }
-            System.out.println("\n");
-
+            adjustDistance();
+            checkIfReachedHole();
         }
 
+    }
+
+    public void adjustDistance() {
+        distanceRemaining -= swing(); //Take a swing, move along
+        if (distanceRemaining < 0)  //If you overshoot, you have to go back - negative distance becomes positive
+            distanceRemaining *= -1;
+        numberOfSwings++;
+    }
+
+    public void checkIfReachedHole() {
+        if (distanceRemaining <= tolerance) {
+            reachedHole = true;
+
+            if (numberOfSwings == 1)
+                System.out.println("Hole in one!");
+            else
+                System.out.println("The ball is in the hole!");
+        } else {
+            System.out.println("Distance remaining: " + MessageFormat.format("{0,number,#.##}", distanceRemaining) + " meters.");
+        }
+        System.out.println("\n");
     }
 
 
@@ -57,29 +59,19 @@ public class Game {
     }
 
     public double swing() {
-        System.out.println("Choose angle and force of swing.");
-        double angle = Double.parseDouble(App.askUserFor("Angle?")); //Check for wrong input handling
-        double power = Double.parseDouble(App.askUserFor("Power?"));
 
-        final double ballWeight = 0.04593;
-        double angleInRadians = (Math.PI / 180) * (angle);
-        double velocity = Math.sqrt(power * 2 / ballWeight);
+        Input input = new Input();
 
-        double distance = Math.pow(velocity, 2) / 9.8 * Math.sin(2 * angleInRadians);
-
-        System.out.println("You send the ball flying " + MessageFormat.format("{0,number,#.##}", distance) + " meters towards the hole!");
+        logDistance(input.getDistance());
 
 
-        logDistance(distance);
-
-
-        return distance;
+        return input.getDistance();
     }
 
-    public void logDistance(double distance){
-        golfLog = Arrays.copyOf(golfLog, golfLog.length +1);
+    public void logDistance(double distance) {
+        golfLog = Arrays.copyOf(golfLog, golfLog.length + 1);
 
-        golfLog[golfLog.length-1] = distance;
+        golfLog[golfLog.length - 1] = distance;
     }
 
 
